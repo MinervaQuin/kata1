@@ -4,6 +4,8 @@
  */
 package com.mycompany.kata1;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -13,16 +15,15 @@ import java.util.GregorianCalendar;
  * @author Minerva
  */
 public class Person {
-    private final Calendar birthday;
+    private final LocalDate birthday;
     private final String name;
-    private final long MILISECONDS_PER_YEAR = (long) (1000*60*60*24*365.25);
 
-    public Person(Calendar birthday, String name) {
+    public Person(LocalDate birthday, String name) {
         this.birthday = birthday;
         this.name = name;
     }
 
-    public Calendar getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
@@ -31,11 +32,7 @@ public class Person {
     }
 
     public int getAge(){
-        Calendar today = GregorianCalendar.getInstance();
-        return (int) (milliSecondsToYear(today.getTimeInMillis() - birthday.getTimeInMillis()));
+        return (int) (Period.between(birthday,LocalDate.now()).getYears());
     }
     
-    private long milliSecondsToYear(long milles){
-        return milles / MILISECONDS_PER_YEAR;
-    }
 }
